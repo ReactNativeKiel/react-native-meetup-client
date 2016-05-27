@@ -4,13 +4,15 @@ import {
   View
 } from 'react-native';
 import Headline from './components/Headline';
+import MeetupList from './components/MeetupList';
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.top}>
-          <Headline text="Hello World" />
+          <Headline text="React (Native) Kiel" />
+          <MeetupList meetups={['2. Meetup', '1. Meetup']} />
         </View>
       </View>
     );
