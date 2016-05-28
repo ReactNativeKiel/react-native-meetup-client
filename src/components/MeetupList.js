@@ -6,6 +6,8 @@ import {
   View,
 } from 'react-native';
 
+import Meetup from './Meetup';
+
 export default class MeetupList extends Component {
 
   constructor(props) {
@@ -36,15 +38,9 @@ export default class MeetupList extends Component {
       <View style={styles.container}>
         <ListView
           dataSource={dataSource}
-          renderRow={this.renderRow}
+          renderRow={data => <Meetup {...data} />}
         />
       </View>
-    );
-  }
-
-  renderRow(rowData, sectionID, rowID, highlightRow) {
-    return (
-      <Text>{rowData}</Text>
     );
   }
 }
