@@ -4,9 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight,
 } from 'react-native';
 
 import Meetup from './Meetup';
+import MeetupDetail from './MeetupDetail';
 
 export default class MeetupList extends Component {
 
@@ -26,7 +28,9 @@ export default class MeetupList extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    this.setState(this.getNewState(nextProps.meetups));
+    if (this.props.meetups.length === 0) {
+      this.setState(this.getNewState(nextProps.meetups));
+    }
   }
 
   render() {
@@ -34,11 +38,29 @@ export default class MeetupList extends Component {
       dataSource,
     } = this.state;
 
+    const {
+      navigator,
+    } = this.props;
+
+  //
     return (
       <View style={styles.container}>
         <ListView
           dataSource={dataSource}
-          renderRow={data => <Meetup {...data} />}
+          renderRow={data => (
+            <TouchableHighlight 
+              activeOpacity={0.5}
+              onPress={() => 
+                requestAnimationFrame(() => {
+                  navigator.push({...data, component: MeetupDetail,});  
+                })
+              }
+              underlayColor="#f5f5f5">
+              <View>
+                <Meetup {...data} />
+              </View>
+            </TouchableHighlight>
+          )}
         />
       </View>
     );

@@ -1,6 +1,6 @@
 import {
   AppRegistry,
 } from 'react-native';
-import App from './src/App';
+import AppWrapper from './src/AppWrapper';
 
-AppRegistry.registerComponent('MeetupLiveCoding', () => App);
+AppRegistry.registerComponent('MeetupLiveCoding', () => AppWrapper);
