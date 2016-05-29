@@ -31,11 +31,15 @@ const meetups = [{
 
 export default class App extends Component {
   render() {
+    const {
+      navigator,
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.top}>
           <Headline text="React (Native) Kiel" />
-          <MeetupList meetups={meetups} />
+          <MeetupList navigator={navigator} meetups={meetups} />
         </View>
       </View>
     );

@@ -8,11 +8,12 @@ import {
 export default class Headline extends Component {
   render() {
     const {
+      style = {},
       text,
     } = this.props;
 
     return (
-      <View style={styles.headline}>
+      <View style={[styles.headline, style]}>
         <Text style={styles.text}>{text}</Text>
       </View>
     );
