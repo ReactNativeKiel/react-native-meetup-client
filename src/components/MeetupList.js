@@ -27,12 +27,6 @@ export default class MeetupList extends Component {
     };
   }
 
-  componentWillUpdate(nextProps) {
-    if (this.props.meetups.length === 0) {
-      this.setState(this.getNewState(nextProps.meetups));
-    }
-  }
-
   render() {
     const {
       dataSource,
