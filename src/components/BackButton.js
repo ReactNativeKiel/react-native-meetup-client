@@ -3,7 +3,8 @@ import {
   Dimensions,
   StyleSheet,
   Text,
-  View
+  TouchableHighlight,
+  View,
 } from 'react-native';
 
 export default class BackButton extends Component {
@@ -13,9 +14,9 @@ export default class BackButton extends Component {
     } = this.props;
 
     return (
-      <View style={styles.backButton}>
+      <TouchableHighlight underlayColor="#4450ba" style={styles.backButton} onPress={navigator.pop}>
         <Text style={styles.text}>&laquo; Back</Text>
-      </View>
+      </TouchableHighlight>
     );
   }
 }
