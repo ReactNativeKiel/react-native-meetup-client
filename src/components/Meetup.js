@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {
+  Animated,
   Dimensions,
+  Easing,
   Image,
   ListView,
   StyleSheet,
@@ -12,6 +14,15 @@ const {width} = Dimensions.get('window');
 import MeetupDetail from './MeetupDetail';
 
 export default class Meetup extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      buttonMovement: new Animated.Value(0),
+      expanded: false,
+    };
+  }
+
   calculateColor(ratio) {
     if (ratio > 0.9) {
       return '#FF0000';
@@ -34,18 +45,45 @@ export default class Meetup extends Component {
       time,
       venueName,
     } = this.props;
+
+    const {
+      buttonMovement,
+      expanded,
+    } = this.state;
+
     const date = new Date(time);
 
     return (
-      <TouchableHighlight 
+      <TouchableHighlight
         activeOpacity={0.5}
-        onPress={() => 
-          requestAnimationFrame(() => {
-            navigator.push({...this.props, component: MeetupDetail,});  
-          })
-        }
+        onPress={() => {
+          if (this.state.expanded) {
+            this.setState({
+              expanded: false,
+            });
+            Animated.timing(buttonMovement, {
+              duration: 500,
+              easing: Easing.inOut(Easing.quad),
+              toValue: 0,
+            }).start();
+          } else {
+            requestAnimationFrame(() => {
+              navigator.push({...this.props, component: MeetupDetail,});
+            });
+          }
+        }}
+        onLongPress={() => {
+          Animated.timing(buttonMovement, {
+            duration: 1000,
+            easing: Easing.inOut(Easing.quad),
+            toValue: -100,
+          }).start();
+          this.setState({
+            expanded: true,
+          });
+        }}
         underlayColor="#f5f5f5">
-        <View style={styles.container}>
+        <Animated.View style={[styles.container, { transform: [{ translateX: buttonMovement }]}]}>
           <Image style={styles.image} source={{ uri: photo }} />
           <View style={styles.infos}>
             <Text style={styles.name}>{name}</Text>
@@ -59,7 +97,7 @@ export default class Meetup extends Component {
               </View>
             </View>
           </View>
-        </View>
+        </Animated.View>
       </TouchableHighlight>
     );
   }
