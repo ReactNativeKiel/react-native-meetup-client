@@ -5,9 +5,11 @@ import {
   ListView,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } from 'react-native';
 const {width} = Dimensions.get('window');
+import MeetupDetail from './MeetupDetail';
 
 export default class Meetup extends Component {
   calculateColor(ratio) {
@@ -25,6 +27,7 @@ export default class Meetup extends Component {
   render() {
     const {
       name,
+      navigator,
       photo,
       rsvpLimit,
       rsvps,
@@ -34,21 +37,30 @@ export default class Meetup extends Component {
     const date = new Date(time);
 
     return (
-      <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: photo }} />
-        <View style={styles.infos}>
-          <Text style={styles.name}>{name}</Text>
-          <View style={styles.details}>
-            <Text style={[styles.rsvp, {
-              color: this.calculateColor(rsvps / rsvpLimit),
-            }]}>{rsvps} / {rsvpLimit}</Text>
-            <View style={styles.placeAndTime}>
-              <Text style={styles.smallText}>{date.getDay()}.{date.getMonth()}.{date.getFullYear()}</Text>
-              <Text style={styles.smallText}>{venueName}</Text>
+      <TouchableHighlight 
+        activeOpacity={0.5}
+        onPress={() => 
+          requestAnimationFrame(() => {
+            navigator.push({...this.props, component: MeetupDetail,});  
+          })
+        }
+        underlayColor="#f5f5f5">
+        <View style={styles.container}>
+          <Image style={styles.image} source={{ uri: photo }} />
+          <View style={styles.infos}>
+            <Text style={styles.name}>{name}</Text>
+            <View style={styles.details}>
+              <Text style={[styles.rsvp, {
+                color: this.calculateColor(rsvps / rsvpLimit),
+              }]}>{rsvps} / {rsvpLimit}</Text>
+              <View style={styles.placeAndTime}>
+                <Text style={styles.smallText}>{date.getDay()}.{date.getMonth()}.{date.getFullYear()}</Text>
+                <Text style={styles.smallText}>{venueName}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableHighlight>
     );
   }
 }
