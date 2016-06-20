@@ -22,10 +22,10 @@ export default class MeetupList extends Component {
 
     return (
       <View style={styles.container}>
-        <ListView
+        {Boolean(meetups.length) && <ListView
           dataSource={dataSource}
           renderRow={data => <Meetup {...data} navigator={navigator} />}
-        />
+        />}
       </View>
     );
   }
