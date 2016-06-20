@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import Headline from './components/Headline';
 import MeetupList from './components/MeetupList';
+import { meetupName } from './services/meetup';
 
 const meetups = [{
   name: 'My fancy Meetup',
@@ -30,15 +31,32 @@ const meetups = [{
 }];
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    meetupName().then(name => {
+      this.setState({
+        name,
+      });
+    });
+  }
+
   render() {
     const {
       navigator,
     } = this.props;
 
+    const {
+      name,
+    } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.top}>
-          <Headline text="React (Native) Kiel" />
+          <Headline text={name || 'Loading Name'} />
           <MeetupList navigator={navigator} meetups={meetups} />
         </View>
       </View>
