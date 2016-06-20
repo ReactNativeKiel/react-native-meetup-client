@@ -11,33 +11,23 @@ import Lightbox from 'react-native-lightbox';
 import Headline from './Headline';
 import BackButton from './BackButton';
 
-const meetupPhotos = ['http://photos1.meetupstatic.com/photos/event/5/b/b/1/600_450383473.jpeg','http://photos2.meetupstatic.com/photos/event/5/c/7/d/600_450383677.jpeg','http://photos3.meetupstatic.com/photos/event/5/c/8/3/600_450383683.jpeg','http://photos2.meetupstatic.com/photos/event/5/c/d/c/600_450383772.jpeg'];
-
 export default class MeetupDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getNewState(meetupPhotos);
-  }
-
-  getNewState(meetupPhotos = []) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-
-    return {
-      dataSource: ds.cloneWithRows(meetupPhotos),
-    };
+    this.state = {};
   }
 
   render() {
     const {
-      dataSource,
-    } = this.state;
-
-    const {
+      photos,
       name,
       navigator,
     } = this.props;
+
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => true,
+    });
+    const dataSource = ds.cloneWithRows(photos);
 
     return (
       <View style={styles.container}>
