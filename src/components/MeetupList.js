@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicatorIOS,
   ListView,
   StyleSheet,
   Text,
@@ -8,6 +7,7 @@ import {
 } from 'react-native';
 
 import Meetup from './Meetup';
+import ActivityIndicator from './ActivityIndicator';
 
 export default class MeetupList extends Component {
   render() {
@@ -28,7 +28,7 @@ export default class MeetupList extends Component {
           renderRow={data => <Meetup {...data} navigator={navigator} />}
         />}
 
-        {Boolean(!meetups.length) && <ActivityIndicatorIOS
+        {Boolean(!meetups.length) && <ActivityIndicator
           style={styles.container}
           size="large"
         />}
