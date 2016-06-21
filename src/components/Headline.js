@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {
+  ActivityIndicatorIOS,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 
 export default class Headline extends Component {
@@ -11,6 +12,15 @@ export default class Headline extends Component {
       style = {},
       text,
     } = this.props;
+
+    if (!text) {
+      return (
+        <ActivityIndicatorIOS
+          style={styles.headline}
+          size="large"
+        />
+      );
+    }
 
     return (
       <View style={[styles.headline, style]}>

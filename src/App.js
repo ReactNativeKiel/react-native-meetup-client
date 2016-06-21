@@ -40,7 +40,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.top}>
-          <Headline text={name || 'Loading Name'} />
+          <Headline text={name} />
           <MeetupList navigator={navigator} meetups={meetups} />
         </View>
       </View>
