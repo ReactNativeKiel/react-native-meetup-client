@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicatorIOS,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+
+import ActivityIndicator from './ActivityIndicator';
 
 export default class Headline extends Component {
   render() {
@@ -15,7 +16,7 @@ export default class Headline extends Component {
 
     if (!text) {
       return (
-        <ActivityIndicatorIOS
+        <ActivityIndicator
           style={styles.headline}
           size="large"
         />
