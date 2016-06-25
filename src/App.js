@@ -5,7 +5,8 @@ import {
 } from 'react-native';
 import Headline from './components/Headline';
 import MeetupList from './components/MeetupList';
-import { allEvents, meetupName } from './services/meetup';
+import { meetupName as networkMeetupName, allEvents } from './services/meetupNetwork';
+import { meetupName as storageMeetupName, setMeetupName } from './services/meetupLocalstorage';
 
 export default class App extends Component {
   constructor(props) {
@@ -14,10 +15,19 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    meetupName().then(name => {
+    networkMeetupName().then(name => {
       this.setState({
         name,
       });
+      setMeetupName(name);
+    });
+
+    storageMeetupName().then(name => {
+      this.setState({
+        name,
+      });
+    }, err => {
+      console.log(err);
     });
 
     allEvents().then(meetups => {
